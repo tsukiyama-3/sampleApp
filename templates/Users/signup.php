@@ -1,5 +1,5 @@
-<a href="/sample_app/users/signup/">新規登録</a>
-<form method="post" name="login">
+<a href="/sample_app/users/signup/">ログイン</a>
+<form method="post" name="signup">
     <input
         type="hidden"
         name="_csrfToken"
