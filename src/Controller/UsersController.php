@@ -4,19 +4,33 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 
+
 class UsersController extends AppController
 {
-
     public function login()
     {
-        if (isset($this->request->data["login"])) {
-            $user = $this->Auth->identify();
-            if ($user) {
-                $this->Auth->setUser($user);
-                return $this->redirect($this->Auth->redirectUrl());
-            } else {
-                
-            }
+        
+    }
+
+    public function signup()
+    {
+        $this->storeUser();
+    }
+
+    public function storeUser()
+    {
+        if (!$this->request->is('post')) {
+            return false;
+        }
+        $this->loadModel('Users');
+        $requestData = $this->request->getData();
+        $newEntity = $this->Users->newEmptyEntity();
+        $newEntity->email = $requestData['email'];
+        $newEntity->password = $requestData['password'];
+        if ($this->Users->save($newEntity)) {
+            $this->Flash->success("登録に成功しました。");
+
+            return $this->redirect(['action' => 'login']);
         }
     }
 
